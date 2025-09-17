@@ -1,7 +1,7 @@
 using JuMP
 using HiGHS
 
-mutable struct EmpacotamentoData 
+mutable struct EmpacotamentoData
   objetos::Int
   pesos::Array{Int}
   caixa_peso_maximo::Int
@@ -51,6 +51,3 @@ optimize!(model)
 
 sol = objective_value(model)
 println("Valor otimo= ", sol)
-
-
-
