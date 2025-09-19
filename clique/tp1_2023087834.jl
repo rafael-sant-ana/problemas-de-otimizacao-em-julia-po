@@ -49,8 +49,8 @@ data = readData(file)
 @variable(model, x[1:data.n], Bin)
 
 for u = 1:data.n
-    for v in data.comp_ng[u]
-        @constraint(model, x[u] + x[v] <= 1)
+    for v in data.comp_ng[u] #Uma clique eh um IndSet no grafo composto. Ja que se clique = todos com todos, clique no G complementar sera nenhum com nenhum == indset
+        @constraint(model, x[u] + x[v] <= 1) #Independent Set = se dois vertices sao adjacentes, no maximo um pode fazer parte do IndSet
     end
 end
 
