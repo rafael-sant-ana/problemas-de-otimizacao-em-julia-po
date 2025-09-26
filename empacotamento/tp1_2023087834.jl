@@ -1,5 +1,4 @@
-using JuMP
-using HiGHS
+using JuMP, Gurobi
 
 mutable struct EmpacotamentoData
     objetos::Int64           # n
@@ -29,7 +28,7 @@ function readData(file)
     return EmpacotamentoData(objetos, pesos, caixa_peso_maximo)
 end
 
-model = Model(HiGHS.Optimizer)
+model = Model(Gurobi.Optimizer)
 
 file = open(ARGS[1], "r")
 
@@ -46,4 +45,4 @@ data = readData(file)
 optimize!(model)
 
 sol = objective_value(model)
-println(sol)
+println("TP1 2023087834 = ", sol)
