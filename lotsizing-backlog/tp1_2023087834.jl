@@ -1,7 +1,7 @@
 using JuMP, HiGHS
 
 mutable struct LotsizingData
-    n::Int;
+    n::Int
     c::Vector{Int} # custos de producao
     d::Vector{Int} # demandas
     p::Vector{Int} # Custos de atrasos
@@ -19,7 +19,7 @@ function readData(file)
         q = split(l, "	")
         if q[1] == "n"
             num_vertices = parse(Int64, q[2])
-            n=num_vertices
+            n = num_vertices
             c = [0 for i = 1:n]
             d = [0 for i = 1:n]
             p = [0 for i = 1:n]
@@ -31,21 +31,21 @@ function readData(file)
 
             c[id] = val
         elseif q[1] == "d"
-          id = parse(Int64, q[2])
-          val = parse(Int64, q[3])
+            id = parse(Int64, q[2])
+            val = parse(Int64, q[3])
 
-          d[id] = val
+            d[id] = val
 
         elseif q[1] == "s"
-          id = parse(Int64, q[2])
-          val = parse(Int64, q[3])
+            id = parse(Int64, q[2])
+            val = parse(Int64, q[3])
 
-          s[id] = val
+            s[id] = val
         elseif q[1] == "p"
-          id = parse(Int64, q[2])
-          val = parse(Int64, q[3])
+            id = parse(Int64, q[2])
+            val = parse(Int64, q[3])
 
-          p[id] = val
+            p[id] = val
         end
     end
 
@@ -62,8 +62,8 @@ data = readData(file)
 @variable(model, est[i=0:data.n+1] >= 0)   # quanto foi estocado
 @variable(model, backlog[i=0:data.n+1] >= 0) # demanda q n foi comprida
 
-for i=1:data.n
-  @constraint(model, est[i] - backlog[i] == est[i-1] - backlog[i-1] + prod[i] - data.d[i])
+for i = 1:data.n
+    @constraint(model, est[i] - backlog[i] == est[i-1] - backlog[i-1] + prod[i] - data.d[i])
 end
 
 @constraint(model, est[0] == 0)     #comecamos zerados
@@ -72,22 +72,16 @@ end
 @constraint(model, backlog[data.n] == 0) #e sem dever nd
 
 @objective(
-  model,
-  Min,
-  sum(
-    prod[i]*data.c[i]
-    + est[i]*data.s[i]
-    + backlog[i]*data.p[i]
-    for i=1:data.n
-  )
+    model,
+    Min,
+    sum(
+        prod[i] * data.c[i]
+        + est[i] * data.s[i]
+        + backlog[i] * data.p[i]
+        for i = 1:data.n
+    )
 )
 
 optimize!(model)
-
 sol = objective_value(model)
-
-println(sol)
-
-# for i = 1:data.n
-#   println("Producao periodo ", i, " = ", value(prod[i]))
-# end
+println("TP1 2023087834 = ", round(sol, digits=2))

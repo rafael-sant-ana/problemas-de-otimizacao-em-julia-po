@@ -45,4 +45,4 @@ data = readData(file)
 optimize!(model)
 
 sol = objective_value(model)
-println("TP1 2023087834 = ", sol)
+println("TP1 2023087834 = ", round(sol, digits=2))

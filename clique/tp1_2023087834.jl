@@ -1,9 +1,9 @@
 using JuMP, HiGHS
 
 mutable struct CliqueData
-    n::Int;
+    n::Int
     ng::Vector{Vector{Int}} #neighbors
-    
+
     comp_ng::Vector{Vector{Int}} # complementary neighbors
 end
 
@@ -16,9 +16,9 @@ function readData(file)
         q = split(l, "	")
         if q[1] == "n"
             num_vertices = parse(Int64, q[2])
-            n=num_vertices
+            n = num_vertices
             ng = [[] for i = 1:n]
-            comp_ng = [[] for i=1:n]
+            comp_ng = [[] for i = 1:n]
 
         elseif q[1] == "e"
             u = parse(Int64, q[2])
@@ -54,11 +54,9 @@ for u = 1:data.n
     end
 end
 
-@objective(model, Max, sum(x[i] for i=1:data.n))
+@objective(model, Max, sum(x[i] for i = 1:data.n))
 
 optimize!(model)
 
 sol = objective_value(model)
-
-println(sol)
-println("Clique vertices: ", [i for i in 1:data.n if value(x[i]) > 0.5])
+println("TP1 2023087834 = ", round(sol, digits=2))
