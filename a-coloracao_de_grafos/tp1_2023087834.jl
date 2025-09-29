@@ -85,12 +85,4 @@ end
 
 optimize!(model)
 
-return model
-
-data = open(ARGS[1], "r") do io
-    readGraph(io)
-end
-
-model = a_coloring(data)
-
 println("TP1 2023087834 = ", objective_value(model))

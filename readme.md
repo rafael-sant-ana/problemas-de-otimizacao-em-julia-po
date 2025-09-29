@@ -8,5 +8,10 @@ Resolvemos quatro problemas, que é o trabalho prático da minha disciplina de P
 Este repositório tem cinco pastas.
 1. Exemplos código Julia $\implies$ Exemplos de códigos de meu professor, Marcio.
 2. Empacotamento: Contém a solução do problema do empacotamento, além de um arquivo readme.md com a função e a modelagem
+3. Clique: Contém a solução do problema do clique, além de um arquivo readme.md com a função e a modelagem
+4. Coloração: Contém a solução do problema da coloração, além de um arquivo readme.md com a função e a modelagem
+5. A-Coloração: Contém a solução do problema da A-Coloração, além de um arquivo readme.md com a função e a modelagem
+
+Além disso, as especificações do trabalho estão no arquivo "spec.pdf"
 
 Made with ❤️ by Rafael Sant'Ana
